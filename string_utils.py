@@ -1,25 +1,24 @@
-def split_at_first_digit(formula):
-  digit_location = 1
-  for i in formula[1:]:
-      if i.isdigit():
-        break
-      digit_location += 1
-  if digit_location == len(formula):
-       return formula, 1
-  per = formula [:digit_location]
-  num = int(formula[digit_location:])
-
-  return per, num
-
-
 def split_before_each_uppercases(formula):
-    start=0
-    split_formula=[]
-    for i in range(1, len(formula)):
-      c= formula [i]
-      if c.isupper():
-        split_formula.append(formula[start:i])
-        start=i
-    split_formula.append(formula[start:])
+    start = 0
+    end = 1
+    elements_lst = []
+    
+    if not formula:
+        return elements_lst
+    
+    while end < len(formula):
+        if formula[end].isupper():
+            elements_lst.append(formula[start:end])
+            start = end
+        end+=1  
+        
+    elements_lst.append(formula[start:])
+    
+    return elements_lst
 
-    return split_formula
+
+def split_at_first_digit(formula):
+    for char_index, char in enumerate(formula):
+        if char.isdigit():
+            return formula[:char_index], int(formula[char_index:])
+    return formula, 1
